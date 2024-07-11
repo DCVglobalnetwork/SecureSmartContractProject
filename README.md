@@ -52,6 +52,8 @@ To deploy the contracts to a local Ethereum network, run:
 ```sh
 npx hardhat run scripts/deploy.js
 ```
+![image](https://github.com/DCVglobalnetwork/SecureSmartContractProject/assets/105791829/53cbe19d-5e7c-4ca2-8797-64c43b39ffd0)
+
 
 ## Test 
 Run Tests
