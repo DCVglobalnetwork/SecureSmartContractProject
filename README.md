@@ -88,6 +88,37 @@ contract SecureContract {
 }
 ```
 
+
+![image](https://github.com/DCVglobalnetwork/SecureSmartContractProject/assets/105791829/2e0c5ba7-ea73-4ed6-9314-ad3258831c37)
+
+**Differences and Analysis**
+
+Withdrawal Order:
+
+`HackedContract.sol` This contract updates the sender's balance after sending Ether (balances[msg.sender] -= _amount;). 
+This is vulnerable to reentrancy attacks where malicious contracts can exploit the contract's state changes during external calls.
+
+`SecureContract.sol` This contract updates the sender's balance before sending Ether (balances[msg.sender] -= _amount;). 
+This approach prevents reentrancy attacks because any reentrant call will see a reduced balance immediately.
+
+Reentrancy Vulnerability:
+
+`HackedContract.sol` The vulnerable order of operations (send then update balance) can allow an attacker to re-enter the withdraw function and potentially withdraw more Ether than they should.
+
+`SecureContract.sol` By updating the balance before performing any external calls (send), it ensures that the contract's state is updated before any potential reentrant call can occur, 
+thus preventing reentrancy attacks.
+
+Functionality:
+
+Both contracts implement basic functionality for depositing and withdrawing Ether.
+SecureContract enhances security by following best practices to prevent reentrancy attacks.
+Conclusion
+The key difference between the two contracts lies in the order of operations during the withdrawal process. 
+SecureContract follows best practices by updating the balance before performing any external calls, thereby mitigating the risk of reentrancy attacks. 
+In contrast, HackedContract exhibits a vulnerability where an attacker could potentially exploit the contract's state changes during a reentrant call.
+
+For production-grade contracts, it's crucial to follow secure coding practices like those demonstrated in SecureContract to safeguard against known vulnerabilities such as reentrancy attacks.
+
 ## Directory Structure
 
 - `contracts/`: Contains Solidity smart contracts.
